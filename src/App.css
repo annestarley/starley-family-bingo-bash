@@ -82,21 +82,30 @@
   margin: 0 auto;
 }
 
-.reveal-btn, .next-btn {
+.reveal-btn, .next-btn, .restart-btn {
   background: transparent;
   outline: none;
   border: none;
   color: #ba6a6b;
-  font-size: 1em;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   font-family: 'Barrio', cursive;
 }
 
+.reveal-btn, .next-btn {
+  font-size: 1em;
+}
+
+.restart-btn {
+  font-size: 1.5em
+}
+
 .reveal-btn:hover, 
 .reveal-btn:active,
 .next-btn:hover,
-.next-btn:active {
+.next-btn:active,
+.restart-btn:hover,
+.restart-btn:active  {
   color: #D17779;
 }
 
@@ -104,6 +113,10 @@
   color: #D17779;
   font-size: 0.5em;
   vertical-align: middle;
+}
+
+.restart-div {
+  padding-top: 3%;
 }
 
 @media (max-width: 1320px) {

@@ -1,6 +1,7 @@
 import React, {Component, Fragment } from 'react';
 import '../App.css';
 import BingoClues from './BingoClues';
+import Refresh from './Refresh';
 
 var JSONData = require('./HelperFiles/BingoObject.json')
 
@@ -91,8 +92,8 @@ class BingoBash extends Component {
             if (nextQuestion.classList.contains('hidden')) nextQuestion.classList.remove('hidden');
 
         } else {
-            alert('no more people - time to rotate')
-            // RESTART THE NAMES
+            let restartDiv = document.querySelector('.restart-div');
+            if (restartDiv.classList.contains('hidden')) restartDiv.classList.remove('hidden');
         }
     }
 
@@ -122,6 +123,7 @@ class BingoBash extends Component {
                         return <BingoClues name={name} data={data} i={i} revealImg={(e) => {this.revealImg(e)}} nextQuestion={(e) => {this.nextQuestion(e)}}/>
                     }
                 }): ''}
+                <Refresh />
             </Fragment>
         )
     }
