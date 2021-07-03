@@ -100,6 +100,12 @@
   color: #D17779;
 }
 
+.hearts {
+  color: #D17779;
+  font-size: 0.5em;
+  vertical-align: middle;
+}
+
 @media (max-width: 1320px) {
   .title img {
     left: 57%;

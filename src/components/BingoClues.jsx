@@ -14,7 +14,7 @@ class BingoClues extends Component {
                     <button className="reveal-btn" onClick={(e)=>{this.props.revealImg(e)}}>Reveal...</button>
                     <div className="reveal hidden">
                         <img src={this.props.data.image} alt='Bingo image.' className='bingo-img'/>
-                        <h2>{this.props.name}</h2>
+                        <h2><span className="hearts">&#9829;</span>  {this.props.name}  <span className="hearts">&#9829;</span></h2>
                         <button onClick={(e)=>{this.props.nextQuestion(e)}} className="next-btn" id={this.props.i} name={JSON.stringify(this.props)}>NEXT CLUE</button>
                     </div>
                 </div>
