@@ -4,13 +4,10 @@
 .App {
   text-align: center;
   margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-header {
-  background: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -22,8 +19,7 @@
 .title {
   position: relative;
   z-index: 1;
-  height: 200px;
-  margin: 3% 0 8%;
+  margin: 3% 0 4%;
 
 }
 
@@ -40,7 +36,7 @@
 .title img {
   z-index: -1;
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 50%
 }
 
@@ -48,35 +44,93 @@
   font-family: 'Barrio', cursive;
   /* font-family: 'Roboto', sans-serif; */
   background: white;
-  color: black;
+  color: #ba6a6b;
   border-radius: 7px;
   padding: 0.2em;
   font-size: 2em;
-  border: solid black 2px;
+  border: solid #ba6a6b 2px;
   -moz-box-shadow: 3px 3px 3px #ccc;
   -webkit-box-shadow: 3px 3px 3px #ccc;
   box-shadow: 3px 3px 3px #ccc;
+  margin: 8%;
 }
 
 .start-btn:hover {
-  color: #666;
-  border-color: #666;
+  color: #C47071;
+  border-color: #C47071;
   font-size: 2.1em;
   box-shadow: 5px 5px 5px #ccc;
 }
 
 .start-btn:active {
-  color: #ba6a6b;
-  border-color: #ba6a6b;
+  color: orange;
+  border-color: orange;
   font-size: 1.9em;
   box-shadow: 1px 1px 1px;
 }
 
 .hidden {
   visibility: hidden;
+  display: none;
 }
 
 .bingo-img {
   display: block;
 }
 
+.reveal img {
+  margin: 0 auto;
+}
+
+.reveal-btn, .next-btn {
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #ba6a6b;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Barrio', cursive;
+}
+
+.reveal-btn:hover, 
+.reveal-btn:active,
+.next-btn:hover,
+.next-btn:active {
+  color: #D17779;
+}
+
+@media (max-width: 1320px) {
+  .title img {
+    left: 57%;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .App-header {
+    width: 100%;
+    padding: 2%;
+  }
+
+  .title {
+    margin: 20% 0 5%;
+  }
+  .title h1 {
+    font-size: 5em;
+  }
+
+  .title img {
+    top: 69%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .start-btn {
+    margin: 40% 8% 5%;
+  }
+
+  .bingo-clue {
+    padding: 20% 0 0;
+  }
+}

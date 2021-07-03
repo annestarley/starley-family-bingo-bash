@@ -15,6 +15,9 @@ class BingoBash extends Component {
         this.readJSON = this.readJSON.bind(this);
         this.writeJSON = this.writeJSON.bind(this);
         this.shuffleArray = this.shuffleArray.bind(this);
+        this.hideStartButton = this.hideStartButton.bind(this);
+        this.revealImg = this.revealImg.bind(this);
+        this.nextQuestion = this.nextQuestion.bind(this);
     }
 
     componentDidMount() {
@@ -23,13 +26,26 @@ class BingoBash extends Component {
         console.log('read json', this.readJSON())
     }
 
-    startTheBash(e) {
-        // this.setState({ready: true});
+    startTheBash(e, iteration = 0) {
         console.log('bash', this.state)
-        // e.target.classList.add('hidden');
-        // let firstClue = document.getElementById('0')
-        // console.log('firstClue', firstClue)
-        // document.getElementById('0').classList.remove('hidden')
+        this.hideStartButton();
+        this.nextQuestion(iteration);
+    }
+
+    hideStartButton () {
+        let startButton = document.querySelector('.start-btn');
+        if (!startButton.classList.contains('hidden')) startButton.classList.add('hidden');
+        let firstQuestion = document.getElementById('0');
+        if (firstQuestion.classList.contains('hidden')) firstQuestion.classList.remove('hidden');
+    }
+
+    revealImg (e) {
+        console.log(e.target)
+    }
+
+    nextQuestion(iteration) {
+        let currentQuestion = document.getElementById(iteration);
+        console.log(currentQuestion)
     }
 
     readJSON() {
