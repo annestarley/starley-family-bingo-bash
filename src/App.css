@@ -1,16 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Barrio&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .App {
   text-align: center;
+  margin: 0 auto;
 }
 
 .App-header {
-  background-color:black;
+  background: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  height: 200px;
+  margin: 3% 0 8%;
+
+}
+
+.title h1 {
+  font-family: 'Barrio', cursive;
+  color: #ba6a6b;
+  font-size: 5.5em;
+  margin: 0 0 9% 0;
+  z-index: 2;
+  -webkit-text-stroke: 1px white;
+  text-shadow: 3px 3px 0 orange, -1px -1px 0 orange, 1px -1px 0 orange, -1px 1px 0 orange, 1px 1px 0 orange;
+}
+
+.title img {
+  z-index: -1;
+  position: absolute;
+  top: 30%;
+  left: 50%
+}
+
+.start-btn {
+  font-family: 'Barrio', cursive;
+  /* font-family: 'Roboto', sans-serif; */
+  background: white;
+  color: black;
+  border-radius: 7px;
+  padding: 0.2em;
+  font-size: 2em;
+  border: solid black 2px;
+  -moz-box-shadow: 3px 3px 3px #ccc;
+  -webkit-box-shadow: 3px 3px 3px #ccc;
+  box-shadow: 3px 3px 3px #ccc;
+}
+
+.start-btn:hover {
+  color: #666;
+  border-color: #666;
+  font-size: 2.1em;
+  box-shadow: 5px 5px 5px #ccc;
+}
+
+.start-btn:active {
+  color: #ba6a6b;
+  border-color: #ba6a6b;
+  font-size: 1.9em;
+  box-shadow: 1px 1px 1px;
 }
 
 .hidden {
@@ -20,3 +79,4 @@
 .bingo-img {
   display: block;
 }
+

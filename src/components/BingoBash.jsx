@@ -8,8 +8,7 @@ class BingoBash extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: JSONData,
-            ready: true
+            family: JSONData.family
         }
 
         this.startTheBash = this.startTheBash.bind(this);
@@ -18,21 +17,23 @@ class BingoBash extends Component {
         this.shuffleArray = this.shuffleArray.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.readJSON();
-        console.log('async', this.state.data.family)
+        console.log('async', this.state.family)
+        console.log('read json', this.readJSON())
     }
 
     startTheBash(e) {
-        e.target.classList.add('hidden');
-        let firstClue = document.getElementById('0')
-        console.log('firstClue', firstClue)
-        document.getElementById('0').classList.remove('hidden')
+        // this.setState({ready: true});
+        console.log('bash', this.state)
+        // e.target.classList.add('hidden');
+        // let firstClue = document.getElementById('0')
+        // console.log('firstClue', firstClue)
+        // document.getElementById('0').classList.remove('hidden')
     }
 
     readJSON() {
-        let obj = this.state.data;
-        let family = obj.family
+        let family = this.state.family
         family.forEach(person => {
             for (let name in person) {
                 if (!person[name]['unused'].length) {
@@ -46,8 +47,7 @@ class BingoBash extends Component {
             }
         })
         let shuffledFamily = this.shuffleArray(family);
-        obj.family = shuffledFamily;
-        this.setState({data: [obj]})
+        this.setState({family: shuffledFamily})
         return shuffledFamily;        
     }
 
@@ -72,9 +72,13 @@ class BingoBash extends Component {
     render() {
         return (
             <Fragment>
-                <h1>Starley Family Bingo Bash</h1>
+                {console.log('inside fragment', this.state)}
+                <div className="title">
+                    <h1>Starley Baby</h1>
+                    <img src="/images/logo.png" alt="" />
+                </div>
                 <button className='start-btn' onClick={(e)=>{this.startTheBash(e)}}>Start the Bash</button>
-                {this.state.ready ? this.state.data.family.map((person,i) => {
+                {this.state.family ? this.state.family.map((person,i) => {
                     for (let name in person) {
                         let data = person[name]
                         return <BingoClues name={name} data={data} i={i} />
