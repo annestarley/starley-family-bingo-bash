@@ -29,23 +29,33 @@ class BingoBash extends Component {
     startTheBash(e, iteration = 0) {
         console.log('bash', this.state)
         this.hideStartButton();
-        this.nextQuestion(iteration);
+        // this.nextQuestion(iteration);
     }
 
     hideStartButton () {
         let startButton = document.querySelector('.start-btn');
         if (!startButton.classList.contains('hidden')) startButton.classList.add('hidden');
-        let firstQuestion = document.getElementById('0');
+        let firstQuestion = document.getElementById('0section');
         if (firstQuestion.classList.contains('hidden')) firstQuestion.classList.remove('hidden');
     }
 
     revealImg (e) {
-        console.log(e.target)
+        if (!e.target.classList.contains('hidden')) e.target.classList.add('hidden');
+        let sib = e.target.nextSibling;
+        if (sib.classList.contains('hidden')) sib.classList.remove('hidden');
     }
 
-    nextQuestion(iteration) {
-        let currentQuestion = document.getElementById(iteration);
-        console.log(currentQuestion)
+    nextQuestion(e) {
+        let iteration = e.target.id;
+        let currentQuestion = document.getElementById(`${iteration}section`);
+        if (!currentQuestion.classList.contains('hidden')) currentQuestion.classList.add('hidden');
+        if (document.getElementById(`${parseInt(iteration) + 1}section`)) {
+            let nextQuestion = document.getElementById(`${parseInt(iteration) + 1}section`);
+            if (nextQuestion.classList.contains('hidden')) nextQuestion.classList.remove('hidden');
+
+        } else {
+            alert('no more people - time to rotate')
+        }
     }
 
     readJSON() {
@@ -97,7 +107,7 @@ class BingoBash extends Component {
                 {this.state.family ? this.state.family.map((person,i) => {
                     for (let name in person) {
                         let data = person[name]
-                        return <BingoClues name={name} data={data} i={i} />
+                        return <BingoClues name={name} data={data} i={i} revealImg={(e) => {this.revealImg(e)}} nextQuestion={(e) => {this.nextQuestion(e)}}/>
                     }
                 }): ''}
             </Fragment>

@@ -4,20 +4,20 @@
             "mary": {
                 "image": "http://via.placeholder.com/150x200",
                 "unused": [],
-                "used": ["question 1", "question 2"]
+                "used": ["question 1 of 3", "question 2 of 3", "question 3 of 3"]
             }
         },
         {
             "1": {
                 "image": "http://via.placeholder.com/150x200",
-                "unused": ["question 2"],
-                "used": ["question 1"]
+                "unused": ["question 2 of 3", "question 3 of 3"],
+                "used": ["question 1 of 3"]
             }
         },
         {
             "2": {
                 "image": "http://via.placeholder.com/150x200",
-                "unused": ["question 1", "question 2"],
+                "unused": ["question 1 of 1", "question 2 of 2"],
                 "used": []
             }
         }
