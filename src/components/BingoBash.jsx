@@ -22,40 +22,6 @@ class BingoBash extends Component {
 
     componentDidMount() {
         this.readJSON();
-        console.log('async', this.state.family)
-        console.log('read json', this.readJSON())
-    }
-
-    startTheBash(e, iteration = 0) {
-        console.log('bash', this.state)
-        this.hideStartButton();
-        // this.nextQuestion(iteration);
-    }
-
-    hideStartButton () {
-        let startButton = document.querySelector('.start-btn');
-        if (!startButton.classList.contains('hidden')) startButton.classList.add('hidden');
-        let firstQuestion = document.getElementById('0section');
-        if (firstQuestion.classList.contains('hidden')) firstQuestion.classList.remove('hidden');
-    }
-
-    revealImg (e) {
-        if (!e.target.classList.contains('hidden')) e.target.classList.add('hidden');
-        let sib = e.target.nextSibling;
-        if (sib.classList.contains('hidden')) sib.classList.remove('hidden');
-    }
-
-    nextQuestion(e) {
-        let iteration = e.target.id;
-        let currentQuestion = document.getElementById(`${iteration}section`);
-        if (!currentQuestion.classList.contains('hidden')) currentQuestion.classList.add('hidden');
-        if (document.getElementById(`${parseInt(iteration) + 1}section`)) {
-            let nextQuestion = document.getElementById(`${parseInt(iteration) + 1}section`);
-            if (nextQuestion.classList.contains('hidden')) nextQuestion.classList.remove('hidden');
-
-        } else {
-            alert('no more people - time to rotate')
-        }
     }
 
     readJSON() {
@@ -79,7 +45,7 @@ class BingoBash extends Component {
 
     shuffleArray(array) {
         var currentIndex = array.length,  randomIndex;
-      
+        
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
@@ -87,18 +53,64 @@ class BingoBash extends Component {
             [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
         }
-      
+        
         return array;
-      }
+    }
 
-    writeJSON() {
+    startTheBash(e, iteration = 0) {
+        let startButton = document.querySelector('.start-btn');
+        if (!startButton.classList.contains('hidden')) startButton.classList.add('hidden');
+        let firstQuestion = document.getElementById('0section');
+        if (firstQuestion.classList.contains('hidden')) firstQuestion.classList.remove('hidden');
+    }
 
+    hideStartButton () {
+        let startButton = document.querySelector('.start-btn');
+        if (!startButton.classList.contains('hidden')) startButton.classList.add('hidden');
+        let firstQuestion = document.getElementById('0section');
+        if (firstQuestion.classList.contains('hidden')) firstQuestion.classList.remove('hidden');
+    }
+
+    revealImg (e) {
+        if (!e.target.classList.contains('hidden')) e.target.classList.add('hidden');
+        let sib = e.target.nextSibling;
+        if (sib.classList.contains('hidden')) sib.classList.remove('hidden');
+    }
+
+    nextQuestion(e) {
+        let personArr = JSON.parse(e.target.name);
+        let iteration = e.target.id;
+        this.writeJSON(personArr, iteration);
+
+        let currentQuestion = document.getElementById(`${iteration}section`);
+
+        if (!currentQuestion.classList.contains('hidden')) currentQuestion.classList.add('hidden');
+
+        if (document.getElementById(`${parseInt(iteration) + 1}section`)) {
+            let nextQuestion = document.getElementById(`${parseInt(iteration) + 1}section`);
+            if (nextQuestion.classList.contains('hidden')) nextQuestion.classList.remove('hidden');
+
+        } else {
+            alert('no more people - time to rotate')
+            // RESTART THE NAMES
+        }
+    }
+
+    writeJSON(personArr, iteration) {
+        let name = personArr.name;
+        let newFamily = this.state.family;
+        let person = this.state.family[iteration][name];
+        person.used.push(person.unused[0]);
+        person.unused.shift();
+        newFamily[iteration][name] = person;
+        this.setState({family: newFamily})
+        console.log(name, 'NEW STATE', this.state)
+        // WRITE TO JSON
     }
 
     render() {
         return (
             <Fragment>
-                {console.log('inside fragment', this.state)}
                 <div className="title">
                     <h1>Starley Baby</h1>
                     <img src="/images/logo.png" alt="" />

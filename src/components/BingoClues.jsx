@@ -7,7 +7,6 @@ class BingoClues extends Component {
     }
 
     render() {
-        console.log('PROPS',this.props)
         return (
             <Fragment>
                 <div className='bingo-clue hidden' id={this.props.i + 'section'}>
@@ -16,7 +15,7 @@ class BingoClues extends Component {
                     <div className="reveal hidden">
                         <img src={this.props.data.image} alt='Bingo image.' className='bingo-img'/>
                         <h2>{this.props.name}</h2>
-                        <button onClick={(e)=>{this.props.nextQuestion(e)}} className="next-btn" id={this.props.i}>NEXT CLUE</button>
+                        <button onClick={(e)=>{this.props.nextQuestion(e)}} className="next-btn" id={this.props.i} name={JSON.stringify(this.props)}>NEXT CLUE</button>
                     </div>
                 </div>
             </Fragment>
