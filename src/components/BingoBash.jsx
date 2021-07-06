@@ -19,6 +19,7 @@ class BingoBash extends Component {
         this.hideStartButton = this.hideStartButton.bind(this);
         this.revealImg = this.revealImg.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
+        this.saveBlob = this.saveBlob.bind(this);
     }
 
     componentDidMount() {
@@ -101,13 +102,37 @@ class BingoBash extends Component {
         let name = personArr.name;
         let newFamily = this.state.family;
         let person = this.state.family[iteration][name];
+
         person.used.push(person.unused[0]);
         person.unused.shift();
         newFamily[iteration][name] = person;
+
         this.setState({family: newFamily})
         console.log(name, 'NEW STATE', this.state)
         // WRITE TO JSON
+
+        let newData = JSON.stringify(this.state.family, null, 2);
+        let blob = new Blob([newData], {type: 'application/json'});
+        let blobURL = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = blobURL;
+        console.log('BLOB', blob)
+
+        // saveAs(blob, './HelperFiles/BingoObject.json');
+        // this.saveBlob(blob, 'BingoObject.json');
     }
+
+    saveBlob(blob, fileName) {
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+    
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
 
     render() {
         return (
@@ -116,7 +141,7 @@ class BingoBash extends Component {
                     <h1>Starley Baby</h1>
                     <img src="/images/logo.png" alt="" />
                 </div>
-                <button className='start-btn' onClick={(e)=>{this.startTheBash(e)}}>Start the Bash</button>
+                <button className='start-btn' onClick={(e)=>{this.startTheBash(e)}}>Start the Game</button>
                 {this.state.family ? this.state.family.map((person,i) => {
                     for (let name in person) {
                         let data = person[name]

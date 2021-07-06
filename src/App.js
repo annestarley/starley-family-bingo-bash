@@ -5,12 +5,12 @@ import BingoBash from './components/BingoBash';
 function App() {
   return (
     <div className="App" 
-    // style={{  
-    //   backgroundImage: "url('/images/background-background.png')",
-    //   backgroundPosition: 'center',
-    //   backgroundSize: '100% 100%',
-    //   backgroundRepeat: 'no-repeat'
-    // }}
+    style={{  
+      // backgroundImage: "url('/images/background-4.png')",
+      // backgroundPosition: 'center',
+      // backgroundSize: '100% 100%',
+      backgroundRepeat: 'repeat'
+    }}
     >
       <header className="App-header" 
       // style={{  
