@@ -94,6 +94,8 @@ class BingoBash extends Component {
         if (!e.target.classList.contains('hidden')) e.target.classList.add('hidden');
         let sib = e.target.nextSibling;
         if (sib.classList.contains('hidden')) sib.classList.remove('hidden');
+        let id = e.target.id;
+        window.location.href = `#${id}bingo-img`
     }
 
     nextQuestion(e) {
@@ -108,6 +110,8 @@ class BingoBash extends Component {
         if (document.getElementById(`${parseInt(iteration) + 1}section`)) {
             let nextQuestion = document.getElementById(`${parseInt(iteration) + 1}section`);
             if (nextQuestion.classList.contains('hidden')) nextQuestion.classList.remove('hidden');
+            let id = e.target.id;
+            window.location.href = `#${id}section`
 
         } else {
             let restartDiv = document.querySelector('.restart-div');
