@@ -2,6 +2,7 @@ import React, {Component, Fragment } from 'react';
 import '../App.css';
 import BingoClues from './BingoClues';
 import Refresh from './Refresh';
+import axios from 'axios';
 
 var JSONData = require('./HelperFiles/BingoObject.json')
 
@@ -14,20 +15,22 @@ class BingoBash extends Component {
 
         this.startTheBash = this.startTheBash.bind(this);
         this.readJSON = this.readJSON.bind(this);
+        this.getJSON = this.getJSON.bind(this);
         this.writeJSON = this.writeJSON.bind(this);
         this.shuffleArray = this.shuffleArray.bind(this);
         this.hideStartButton = this.hideStartButton.bind(this);
         this.revealImg = this.revealImg.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
-        this.saveBlob = this.saveBlob.bind(this);
+        // this.saveBlob = this.saveBlob.bind(this);
+        this.postJSON = this.postJSON.bind(this);
     }
 
     componentDidMount() {
-        this.readJSON();
+        this.getJSON();
     }
 
-    readJSON() {
-        let family = this.state.family
+    readJSON(data) {
+        let family = data.family
         family.forEach(person => {
             for (let name in person) {
                 if (!person[name]['unused'].length) {
@@ -41,8 +44,23 @@ class BingoBash extends Component {
             }
         })
         let shuffledFamily = this.shuffleArray(family);
-        this.setState({family: shuffledFamily})
+        this.setState({family: shuffledFamily});
+        console.log(shuffledFamily)
         return shuffledFamily;        
+    }
+
+    getJSON() {
+        fetch('http://localhost:6001/readjson', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log('GET call', data);
+            this.readJSON(data)
+        })
     }
 
     shuffleArray(array) {
@@ -100,6 +118,7 @@ class BingoBash extends Component {
 
     writeJSON(personArr, iteration) {
         let name = personArr.name;
+        console.log(this.state.family)
         let newFamily = this.state.family;
         let person = this.state.family[iteration][name];
 
@@ -111,28 +130,50 @@ class BingoBash extends Component {
         console.log(name, 'NEW STATE', this.state)
         // WRITE TO JSON
 
-        let newData = JSON.stringify(this.state.family, null, 2);
-        let blob = new Blob([newData], {type: 'application/json'});
-        let blobURL = URL.createObjectURL(blob);
-        var link = document.createElement('a');
-        link.href = blobURL;
-        console.log('BLOB', blob)
+        this.postJSON(newFamily);
+
+        // let newData = JSON.stringify(this.state.family, null, 2);
+        // let blob = new Blob([newData], {type: 'application/json'});
+        // let blobURL = URL.createObjectURL(blob);
+        // var link = document.createElement('a');
+        // link.href = blobURL;
+        // console.log('BLOB', blob)
 
         // saveAs(blob, './HelperFiles/BingoObject.json');
         // this.saveBlob(blob, 'BingoObject.json');
     }
 
-    saveBlob(blob, fileName) {
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        a.style = "display: none";
+    postJSON (data) {
+        fetch('http://localhost:6001/writejson', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => {
+            console.log('post res', res);
+            res.json()
+        })
+        .then(results => {
+            console.log('POST call to server', results)
+        })
+        .catch(err => {
+            console.log('Error: ', err)
+        })
+    }
+
+    // saveBlob(blob, fileName) {
+    //     var a = document.createElement("a");
+    //     document.body.appendChild(a);
+    //     a.style = "display: none";
     
-        var url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-    };
+    //     var url = window.URL.createObjectURL(blob);
+    //     a.href = url;
+    //     a.download = fileName;
+    //     a.click();
+    //     window.URL.revokeObjectURL(url);
+    // };
 
     render() {
         return (
