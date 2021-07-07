@@ -21,7 +21,6 @@ class BingoBash extends Component {
         this.hideStartButton = this.hideStartButton.bind(this);
         this.revealImg = this.revealImg.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
-        // this.saveBlob = this.saveBlob.bind(this);
         this.postJSON = this.postJSON.bind(this);
     }
 
@@ -50,7 +49,7 @@ class BingoBash extends Component {
     }
 
     getJSON() {
-        fetch('http://localhost:6001/readjson', {
+        fetch('https://starley-bingo-bash.herokuapp.com/readjson', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +117,6 @@ class BingoBash extends Component {
 
     writeJSON(personArr, iteration) {
         let name = personArr.name;
-        console.log(this.state.family)
         let newFamily = this.state.family;
         let person = this.state.family[iteration][name];
 
@@ -127,24 +125,12 @@ class BingoBash extends Component {
         newFamily[iteration][name] = person;
 
         this.setState({family: newFamily})
-        console.log(name, 'NEW STATE', this.state)
-        // WRITE TO JSON
 
         this.postJSON(newFamily);
-
-        // let newData = JSON.stringify(this.state.family, null, 2);
-        // let blob = new Blob([newData], {type: 'application/json'});
-        // let blobURL = URL.createObjectURL(blob);
-        // var link = document.createElement('a');
-        // link.href = blobURL;
-        // console.log('BLOB', blob)
-
-        // saveAs(blob, './HelperFiles/BingoObject.json');
-        // this.saveBlob(blob, 'BingoObject.json');
     }
 
     postJSON (data) {
-        fetch('http://localhost:6001/writejson', {
+        fetch('https://starley-bingo-bash.herokuapp.com/writejson', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -162,18 +148,6 @@ class BingoBash extends Component {
             console.log('Error: ', err)
         })
     }
-
-    // saveBlob(blob, fileName) {
-    //     var a = document.createElement("a");
-    //     document.body.appendChild(a);
-    //     a.style = "display: none";
-    
-    //     var url = window.URL.createObjectURL(blob);
-    //     a.href = url;
-    //     a.download = fileName;
-    //     a.click();
-    //     window.URL.revokeObjectURL(url);
-    // };
 
     render() {
         return (
